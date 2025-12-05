@@ -17,10 +17,10 @@ class EmployeeFactory extends Factory
     public function definition(): array
     {
         return [
-            'first_name'=>fake()->firstName(),
-            'last_name'=>fake()->lastName(),
-            'address'=>fake()->address(),
-            'salary'=>fake()->randomFloat(2,450,25000),
+            'first_name' => fake()->firstName(),
+            'last_name' => fake()->lastName(),
+            'address' => fake()->address(),
+            'salary' => fake()->numberBetween(10000, 25000),
         ];
     }
 }

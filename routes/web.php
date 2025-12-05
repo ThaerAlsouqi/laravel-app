@@ -10,12 +10,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('Employee')->controller(EmployeeController::class)->group(function() {
-    Route::get('/','index')->name('index');
+Route::prefix('employee')->controller(EmployeeController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('create', 'create')->name('create');
 });
 
 // Route::get('addemp',[EmployeeController::class,'addemp']);
 
 // Route::get('getemp',[EmployeeController::class,'getemp']);
 // Route::get('softdel',[EmployeeController::class,'softdel']);
-

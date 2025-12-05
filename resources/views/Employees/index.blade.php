@@ -1,64 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('Layouts.app');
+@section('title', 'Employees');
+@section('section')
+    <div class="container py-5">
+        <form action="{{ URL('employee') }}" method="GET">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+                <input id="search" name="search" type="text" class="form-control w-25" placeholder="Search employees..."
+                    value="{{ request('search') }}">
+            </div>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>Document</title>
-</head>
+        </form>
 
-<body>
-    <div class="container">
-        <header class="d-flex justify-content-center py-3">
-            <ul class="nav nav-pills">
-                <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
-                <li class="nav-item"><a href="{{ route('index') }}" class="nav-link">Employee</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
-            </ul>
-        </header>
+
+        <!-- عنوان + زر أكشن -->
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h3 class="mb-0">Employees</h3>
+                <small class="text-muted">List of all employees and their salaries</small>
+            </div>
+
+            <a href="{{ Route('create') }}" class="btn btn-primary btn-sm">
+                <!-- احذف الآيكون لو ما عندك Bootstrap Icons -->
+                <i class="bi bi-plus-circle me-1"></i>
+                Add Employee
+            </a>
+        </div>
+
+        <!-- كارد تحتوي الجدول -->
+        <div class="card shadow-sm border-0">
+            <div class="card-body p-0">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped mb-0 align-middle">
+                        <thead class="table-dark">
+                            <tr>
+                                <th style="width: 80px;">ID</th>
+                                <th>First Name</th>
+                                <th>Last Name</th>
+                                <th class="text-end">Salary</th>
+                                <th class="text-center" style="width: 160px;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($employees as $item)
+                                <tr>
+                                    <td>
+                                        {{ $item->id }}
+                                    </td>
+                                    <td>
+                                        {{ $item->first_name }}
+                                    </td>
+                                    <td>
+                                        {{ $item->last_name }}
+                                    </td>
+                                    <td class="text-end">
+                                        {{ $item->salary }}$
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="#" class="btn btn-outline-primary btn-sm">view</a>
+                                        <a href="#" class="btn btn-outline-danger btn-sm">delete</a>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        </tbody>
+                    </table>
+                    <div class="pagination justify-content-center">
+                        {{ $employees->appends(request()->query())->links('pagination::bootstrap-5') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-
-    <div class="container mt-4">
-
-  <div class="table-responsive">
-    <table class="table table-hover table-bordered align-middle">
-      <thead class="table-secondary">
-        <tr>
-          <th>ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Salary</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($employees as $emp )
-        <tr>
-            <td>{{ $emp->id }}</td>
-            <td>{{ $emp ->first_name }}</td>
-            <td>{{ $emp->last_name }}</td>
-            <td>{{ $emp->salary }}</td>
-        </tr>
-        @endforeach
-      </tbody>
-    </table>
-  </div>
-
-</div>
-
-
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
-        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
-        crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
-</body>
-
-</html>
+@endsection

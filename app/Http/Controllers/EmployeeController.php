@@ -40,11 +40,18 @@ class EmployeeController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $employees = Employee::all();
+        $employees = Employee::when($request->search, function ($query) use ($request) {
+            return $query->whereAny([
+                'id',
+                'first_name',
+                'last_name',
+            ], 'like', '%' . $request->search . '%');
+        })->paginate(10);
 
-        return view('Employees.index',compact('employees'));
+
+        return view('Employees.index', compact('employees'));
     }
 
     /**
@@ -52,7 +59,7 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        //
+        return view('Employees.create');
     }
 
     /**
