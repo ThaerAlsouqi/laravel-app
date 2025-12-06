@@ -67,7 +67,15 @@ class EmployeeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $employee=new Employee();
+
+        $employee->first_name = $request->first_name;
+        $employee->last_name = $request->last_name;
+        $employee->address = $request->address;
+        $employee->salary = $request->salary;
+        $employee->save();
+
+        return redirect('employee');
     }
 
     /**
@@ -75,7 +83,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        $employee=Employee::findOrFail();
     }
 
     /**

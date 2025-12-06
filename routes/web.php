@@ -13,6 +13,8 @@ Route::get('/', function () {
 Route::prefix('employee')->controller(EmployeeController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('create', 'create')->name('create');
+    Route::post('store','store');
+    Route::get('show','show');
 });
 
 // Route::get('addemp',[EmployeeController::class,'addemp']);
