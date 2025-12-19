@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\EmployeeAddRequest;
 use App\Models\Employee;
 use Illuminate\Http\Request;
 
@@ -65,9 +66,17 @@ class EmployeeController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EmployeeAddRequest $request)
     {
-        $employee=new Employee();
+        // $request->validate([
+        //     'first_name' => 'required|string|max:255',
+        //     'last_name' => 'required|string|max:255',
+        //     'salary' => 'required|integer|min:450',
+        // ],[ // when u want a specific message 
+        //     'first_name.required' => 'plaese enter a first_name'
+        // ]);
+
+        $employee = new Employee();
 
         $employee->first_name = $request->first_name;
         $employee->last_name = $request->last_name;
@@ -83,30 +92,42 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        $employee=Employee::findOrFail();
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Employee $employee)
-    {
-        //
-    }
 
+    public function edit($id)
+    {
+        $employee = Employee::findOrFail($id);
+
+        return view('Employees.edit', compact('employee'));
+    }
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Employee $employee)
+    public function update(Request $request, $id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+
+        $employee->first_name = $request->first_name;
+        $employee->last_name = $request->last_name;
+        $employee->address = $request->address;
+        $employee->salary = $request->salary;
+        $employee->update();
+
+        return redirect('employee');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Employee $employee)
+    public function destroy(Request $request,$id)
     {
-        //
+        $employee=Employee::findOrFail($id)->delete();
+
+        return redirect('employee');
     }
 }

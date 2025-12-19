@@ -59,13 +59,13 @@
                                             <strong class="text-secondary">${{ number_format($item->salary, 2) }}</strong>
                                         </td>
                                         <td class="text-center">
-                                            <a href="{{ URL('employee/' . $item->id . '/edit') }}" class="btn btn-sm btn-outline-primary">
+                                            <a href="{{ URL('employee/edit',$item->id) }}" class="btn btn-sm btn-outline-primary">
                                                 <i class="bi bi-pencil"></i> Edit
                                             </a>
-                                            <form action="{{ URL('employee/' . $item->id) }}" method="POST" style="display:inline;">
+                                            <form action="{{ URL('employee/delete',$item->id) }}" method="POST" style="display:inline;">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')">
+                                                <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure u wanna delete {{ $item->id }}?')">
                                                     <i class="bi bi-trash"></i> Delete
                                                 </button>
                                             </form>

@@ -185,9 +185,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ URL('employee/create') }}">
+                        {{-- <a class="nav-link" href="{{ URL('employee/create') }}">
                             <i class="bi bi-plus-circle me-1"></i>Add Employee
-                        </a>
+                        </a> --}}
                     </li>
                 </ul>
             </div>
